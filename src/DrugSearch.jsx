@@ -36,60 +36,103 @@ const DrugSearch = ({ lowStockColor, mediumStockColor, highStockColor }) => {
 
   return (
     <>
-    
-      <div style={{ flex: 1, marginRight: '20px' }}>
-        <h1>Available Drugs</h1>
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {mockDrugDatabase.map((drug) => (
-            <li key={drug.barcode} style={{ marginBottom: '10px' }}>
-              {drug.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div style={{ flex: 2 }}>
-        <h1>MedStocker</h1>
-        <div>
-          <input
-            type="text"
-            placeholder="Search by drug name or barcode"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            style={{ padding: '10px', fontSize: '16px', width: '300px' }}
-          />
-          <button
-            onClick={handleSearch}
-            style={{ padding: '10px 20px', fontSize: '16px', marginLeft: '10px', color:"black" }}
-          >
-            Search
-          </button>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, marginRight: '20px' }}>
+          <h1>Available Drugs</h1>
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            {mockDrugDatabase.map((drug) => (
+              <li key={drug.barcode} style={{ marginBottom: '10px' }}>
+                {drug.name}
+              </li>
+            ))}
+          </ul>
         </div>
-        {drugInfo && (
-          <div style={{ marginTop: '20px' }}>
-            <h2>Drug Information</h2>
-            <p><strong>Name:</strong> {drugInfo.name}</p>
-            <p><strong>Price:</strong> {drugInfo.price}</p>
-            <p><strong>Shelf Number:</strong> {drugInfo.shelf}</p>
-            <p>
-              <strong>Amount in Stock:</strong>
-              <span style={{ marginLeft: '10px' }}>
-                {drugInfo.stock}
-                <span
-                  style={{
-                    display: 'inline-block',
-                    width: '10px',
-                    height: '10px',
-                    backgroundColor: getStockColor(drugInfo.stock),
-                    borderRadius: '50%',
-                    marginLeft: '5px',
-                  }}
-                ></span>
-              </span>
-            </p>
+        <div style={{ flex: 2, minWidth: '300px' }}>
+          <h1>Med<span style={{ color: 'green' }}>Stocker</span></h1>
+          <div>
+            <input
+              type="text"
+              placeholder="Search by drug name or barcode"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              style={{ padding: '10px', fontSize: '16px', width: '100%', maxWidth: '300px' }}
+            />
+            <button
+              onClick={handleSearch}
+              style={{ padding: '10px 20px', fontSize: '16px', marginLeft: '10px', color: "black" }}
+            >
+              Search
+            </button>
           </div>
-        )}
+          {drugInfo && (
+            <div style={{ marginTop: '20px' }}>
+              <h2>Drug Information</h2>
+              <p><strong>Name:</strong> {drugInfo.name}</p>
+              <p><strong>Price:</strong> {drugInfo.price}</p>
+              <p><strong>Shelf Number:</strong> {drugInfo.shelf}</p>
+              <p>
+                <strong>Amount in Stock:</strong>
+                <span style={{ marginLeft: '10px' }}>
+                  {drugInfo.stock}
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      width: '10px',
+                      height: '10px',
+                      backgroundColor: getStockColor(drugInfo.stock),
+                      borderRadius: '50%',
+                      marginLeft: '5px',
+                    }}
+                  ></span>
+                </span>
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-      </>
+      <div style={{ marginTop: '20px', padding: '10px', borderTop: '1px solid #ccc' }}>
+        <h2>Stock Status Legend</h2>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '20px',
+              height: '20px',
+              backgroundColor: 'green',
+              borderRadius: '50%',
+              marginRight: '10px',
+            }}
+          ></span>
+          <span>Sufficient Stock</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '20px',
+              height: '20px',
+              backgroundColor: 'yellow',
+              borderRadius: '50%',
+              marginRight: '10px',
+            }}
+          ></span>
+          <span>Stock Running Out</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '20px',
+              height: '20px',
+              backgroundColor: 'red',
+              borderRadius: '50%',
+              marginRight: '10px',
+            }}
+          ></span>
+          <span>Call Supplier</span>
+        </div>
+      </div>
+    </>
   );
 };
 
